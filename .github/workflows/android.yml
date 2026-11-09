@@ -39,8 +39,6 @@ jobs:
 
           echo "Found sdkmanager: $SDKMANAGER"
 
-          chmod +x "$SDKMANAGER"
-
           yes | "$SDKMANAGER" --sdk_root="$SDK" --licenses || true
 
           "$SDKMANAGER" --sdk_root="$SDK" --install \
