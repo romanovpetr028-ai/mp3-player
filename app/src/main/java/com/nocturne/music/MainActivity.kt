@@ -89,7 +89,7 @@ class MainActivity : Activity() {
   val scroll=ScrollView(this); list=column(); scroll.addView(list); root.addView(scroll,LinearLayout.LayoutParams(-1,0,1f))
   val playerPanel=column().apply { background=shape(card); setPadding(dp(10),dp(8),dp(10),dp(8)) }
   nowLabel=text("Ничего не играет",14f,white).apply { maxLines=2 }; playerPanel.add(nowLabel)
-  progress=SeekBar(this).apply { progressTintList=android.content.res.ColorStateList.valueOf(themes[themeIndex]); setOnSeekBarChangeListener(object:SeekBar.OnSeekBarChangeListener { override fun onStartTrackingTouch(s:SeekBar?){}; override fun onStopTrackingTouch(s:SeekBar?){ player?.seekTo(progress.progress) }; override fun onProgressChanged(s:SeekBar?,p:Int,fromUser:Boolean){} }) }; playerPanel.add(progress)
+  progress=SeekBar(this).apply { progressTintList=android.content.res.ColorStateList.valueOf(themes[themeIndex]); setOnSeekBarChangeListener(object:SeekBar.OnSeekBarChangeListener { override fun onStartTrackingTouch(s:SeekBar?){}; override fun onStopTrackingTouch(s:SeekBar?){ player?.seekTo(s?.progress ?: 0) }; override fun onProgressChanged(s:SeekBar?,p:Int,fromUser:Boolean){} }) }; playerPanel.add(progress)
   val controls=row(); controls.add(button(if(shuffle) "🔀" else "⇄") { shuffle=!shuffle; prefs.edit().putBoolean("shuffle",shuffle).apply(); render() },1f)
   controls.add(button("|◀") { previous() },1f); playButton=button(if(player?.isPlaying==true) "Ⅱ" else "▶") { toggle() }; controls.add(playButton,1f)
   controls.add(button("▶|") { next() },1f); controls.add(button(arrayOf("↪","↻","↻¹")[repeat]) { repeat=(repeat+1)%3; prefs.edit().putInt("repeat",repeat).apply(); render() },1f)
